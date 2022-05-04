@@ -45,8 +45,10 @@ it produces cross marks (and a 1 exit status).
 
 # Automated Scanning
 
-Automated Scanning is implemented a Github Action.
+Automated Scanning is implemented as a Github Action (see https://github.com/GuilhemN/wordpress-scan/actions/workflows/scan-wordpress.yaml).
 
 For simplicity, it uses the third party Github Action [WTFender/wpscan-action](https://github.com/WTFender/wpscan-action) to generate the WPScan analysis report.
 
 Then, it calls the Python script from previous section to analyze the report.
+
+Here, we trigger it manually, but it could easily be executed on a regular basis (see https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
