@@ -1,0 +1,45 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress:5.2.4
+    restart: always
+    ports:
+      - "8080:80"
+    expose:
+      - 80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: aboutyou_db
+      WORDPRESS_DB_USER: aboutyou_user
+      WORDPRESS_DB_PASSWORD: "3M22s%Zxh@cN4Aq#ay"
+    volumes:
+      - ./www_wordpress:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: aboutyou_db
+      MYSQL_USER: aboutyou_user
+      MYSQL_PASSWORD: "3M22s%Zxh@cN4Aq#ay"
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - ./db:/var/lib/mysql
+
+  wpcli:
+    depends_on: 
+      - db
+      - wordpress
+    image: wordpress:cli
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: aboutyou_db
+      WORDPRESS_DB_USER: aboutyou_user
+      WORDPRESS_DB_PASSWORD: "3M22s%Zxh@cN4Aq#ay"
+    entrypoint: wp
+    command: "--info"
+    user: 33:33 # see https://stackoverflow.com/questions/48582039/wp-cli-file-permission-problems-using-docker-volumes
+    volumes:
+      - ./www_wordpress:/var/www/html

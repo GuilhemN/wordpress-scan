@@ -1,0 +1,22 @@
+on: workflow_dispatch
+jobs:
+  wpscan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: WPScan # Uses a third-party Github action for simplicity, could also create one
+        uses: WTFender/wpscan-action@v1.0
+        id: wpscan
+        with:
+          url: 'https://ecolaus.ch/'
+          token: ${{ secrets.WPSCAN_TOKEN }}
+          options: "--random-user-agent"
+
+      - name: Scan Results
+        run: |
+          echo $ANALYSIS > wpscan_result.json
+          python3 wpscan/process_wpscan.py wpscan_result.json
+        env:
+          ANALYSIS: ${{ steps.wpscan.outputs.result }}
