@@ -1,3 +1,11 @@
+This repository showcases how it is possible use WPScan to detect automatically a Wordpress website vulnerabilities.
+
+For the purpose of demonstration, it implements the following elements:
+
+- A dockerized vulnerable version of Wordpress
+- A script parsing the output from WPScan and summarizing whether a vulnerability was found
+- A Github Action to run WPScan automatically on a website
+
 # Wordpress Configuration
 
 Wordpress version: 5.2.4
