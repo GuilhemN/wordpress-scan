@@ -12,7 +12,7 @@ jobs:
         with:
           url: 'https://ecolaus.ch/'
           token: ${{ secrets.WPSCAN_TOKEN }}
-          options: "--random-user-agent"
+          options: "--random-user-agent -e vp,vt --plugins-detection mixed --themes-detection mixed"
 
       - name: Scan Results
         run: |
